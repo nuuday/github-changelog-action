@@ -1,6 +1,9 @@
 name: 'Generate changelog with git-chglog'
-description: 'Greet someone and record the time'
-icon: calendar
+description: 'Generate a changelog using conventional commits using the git-chlog tool'
+branding:
+  icon: 'calendar'  
+  color: 'green'
+
 inputs:
   next_version:
     description: 'Next version'
