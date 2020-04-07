@@ -1,66 +1,42 @@
-# Project Title
+# Generate changelog with git-chglog
 
-One Paragraph of project description goes here
+Github Action for creating a CHANGELOG.md file based on semver and conventional commits.
 
-## Getting Started
+## Usage
+### Pre-requisites
+Create a workflow .yml file in your repositories .github/workflows directory. An example workflow is available below. For more information, reference the GitHub Help Documentation for Creating a workflow file.
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Further more you need to have [git-chlog]() configured and have the configuration added to your git repository
 
-### Prerequisites
+### Inputs
+ - `next_version`: Next version number
+ - `config_dir`: git-chglog configuration directory. Default: `.ghglog`
+ - `filename`: Filename to write the changelog to. Default: `CHANGELOG.md`
 
-What things you need to install the software and how to install them
+### Example workflow - upload a release asset
+On every `push` to `master` generate a CHANGELOG.md file.
 
-```
-Give examples
-```
+```yaml
+name: Build and release
+on: 
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: nuuday/github-changelog-action@v1.0.0
+        with:
+          next_version: "1.0.0"      
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+## License
+The scripts and documentation in this project are released under the [MIT License](LICENSE)
 
 ## Contributing
 
@@ -68,20 +44,10 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/nuuday/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/nuuday/github-changelog-action/tags). 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Steffen F. Qvistgaard** - *Initial work* - [PurpleBooth](https://github.com/ssoerensen)
 
-See also the list of [contributors](https://github.com/nuuday/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+See also the list of [contributors](https://github.com/nuuday/github-changelog-action/contributors) who participated in this project.

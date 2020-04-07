@@ -1,0 +1,24 @@
+name: 'Generate changelog with git-chglog'
+description: 'Greet someone and record the time'
+inputs:
+  next_version:
+    description: 'Next version'
+    required: true
+
+  config_dir:
+    description: 'git-chglog configuration directory'
+    default: '.chglog'
+    required: true
+
+  filename:
+    description: 'Filename to write the changelog to'
+    default: 'CHANGELOG.md'
+    required: true
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.config_dir }}
+    - ${{ inputs.next_version }}
+    - ${{ inputs.filename }}
