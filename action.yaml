@@ -1,5 +1,6 @@
 name: 'Generate changelog with git-chglog'
 description: 'Greet someone and record the time'
+icon: calendar
 inputs:
   next_version:
     description: 'Next version'
