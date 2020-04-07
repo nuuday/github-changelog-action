@@ -6,7 +6,7 @@ Github Action for creating a CHANGELOG.md file based on semver and conventional 
 ### Pre-requisites
 Create a workflow .yml file in your repositories .github/workflows directory. An example workflow is available below. For more information, reference the GitHub Help Documentation for Creating a workflow file.
 
-Further more you need to have [git-chlog]() configured and have the configuration added to your git repository
+Further more you need to have [git-chlog](https://github.com/git-chglog/git-chglog) configured and have the configuration added to your git repository.
 
 ### Inputs
  - `next_version`: Next version number
@@ -48,6 +48,6 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Steffen F. Qvistgaard** - *Initial work* - [PurpleBooth](https://github.com/ssoerensen)
+* **Steffen F. Qvistgaard** - *Initial work* - [ssoerensen](https://github.com/ssoerensen)
 
 See also the list of [contributors](https://github.com/nuuday/github-changelog-action/contributors) who participated in this project.
