@@ -28,7 +28,7 @@ done
 shift $((OPTIND -1))
 
 
-if [ -f "${1}/config.yml" ] && [ -f "${1}/CHANGELOG.tpl.md" ]; then
+if [ -f "${config}/config.yml" ] && [ -f "${config}/CHANGELOG.tpl.md" ]; then
   changelog=$(/usr/local/bin/git-chglog --config "${config}/config.yml" ${output} ${next_tag} ${tag})
 
   if [ -z "$output" ]; then
