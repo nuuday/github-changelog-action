@@ -51,6 +51,7 @@ if [ -f "${config}/config.yml" ] && [ -f "${config}/CHANGELOG.tpl.md" ]; then
     echo "::debug ::git-chlog -o options is set. writing changelog to ${output}"
     echo "${changelog}" > ${output}
   fi
+  find / -name ${output}
 
 else 
   echo "::warning ::git-chlog configuration was not found, skipping changelog generation."
