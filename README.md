@@ -12,6 +12,7 @@ Further more you need to have [git-chlog](https://github.com/git-chglog/git-chgl
  - `next_version`: Next version number
  - `config_dir`: git-chglog configuration directory. Default: `.ghglog`
  - `filename`: Filename to write the changelog to. Default: `CHANGELOG.md`
+ - `tag`: Optional, Generate changelog only for this tag
 
 ### Outputs
  - `changelog`: Changelog content if no `filename` input is empty
