@@ -13,6 +13,9 @@ Further more you need to have [git-chlog](https://github.com/git-chglog/git-chgl
  - `config_dir`: git-chglog configuration directory. Default: `.ghglog`
  - `filename`: Filename to write the changelog to. Default: `CHANGELOG.md`
 
+### Outputs
+ - `changelog`: Changelog content if no `filename` input is empty
+
 ### Example workflow - upload a release asset
 On every `push` to `master` generate a CHANGELOG.md file.
 

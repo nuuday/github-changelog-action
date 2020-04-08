@@ -17,12 +17,17 @@ inputs:
   filename:
     description: 'Filename to write the changelog to'
     default: 'CHANGELOG.md'
-    required: true
+    required: false
 
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
+    - -c
     - ${{ inputs.config_dir }}
+    - -n
     - ${{ inputs.next_version }}
+    - -o
     - ${{ inputs.filename }}
+    - -t
+    - ${{ inputs.tag }}
