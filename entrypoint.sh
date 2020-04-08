@@ -29,7 +29,11 @@ shift $((OPTIND -1))
 
 
 if [ -f "${config}/config.yml" ] && [ -f "${config}/CHANGELOG.tpl.md" ]; then
-  echo "::warning ::git-chlog executing command: /usr/local/bin/git-chglog --config "${config}/config.yml" ${next_tag} ${tag}"
+  echo "::debug ::git-chlog: -c '${config}'"
+  echo "::debug ::git-chlog: -n '${next_tag}'"
+  echo "::debug ::git-chlog: -o '${output}'"
+  echo "::debug ::git-chlog: -t '${tag}'"
+  echo "::info ::git-chlog executing command: /usr/local/bin/git-chglog --config "${config}/config.yml" ${next_tag} ${tag}"
 
   changelog=$(/usr/local/bin/git-chglog --config "${config}/config.yml" ${next_tag} ${tag})
 
