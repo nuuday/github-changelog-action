@@ -17,7 +17,7 @@ while getopts "n:c:o:t:" opt; do
       ;;
     o )
       if [ ! -z ${OPTARG} ]; then
-        output="--output ${OPTARG}"
+        output="${OPTARG}"
       fi
       ;;
     t )
@@ -29,14 +29,24 @@ shift $((OPTIND -1))
 
 
 if [ -f "${config}/config.yml" ] && [ -f "${config}/CHANGELOG.tpl.md" ]; then
-  changelog=$(/usr/local/bin/git-chglog --config "${config}/config.yml" ${output} ${next_tag} ${tag})
+  echo "::warning ::git-chlog executing command: /usr/local/bin/git-chglog --config "${config}/config.yml" ${next_tag} ${tag}"
 
-  if [ -z "$output" ]; then
-    changelog="${changelog//'%'/'%25'}"
-    changelog="${changelog//$'\n'/'%0A'}"
-    changelog="${changelog//$'\r'/'%0D'}"
-    echo "::set-output name=changelog::${changelog}"
+  changelog=$(/usr/local/bin/git-chglog --config "${config}/config.yml" ${next_tag} ${tag})
+
+  echo "----------------------------------------------------------"
+  echo "${changelog}"
+  echo "----------------------------------------------------------"
+
+  changelog="${changelog//'%'/'%25'}"
+  changelog="${changelog//$'\n'/'%0A'}"
+  changelog="${changelog//$'\r'/'%0D'}"
+  echo "::set-output name=changelog::${changelog}"
+
+  if [ ! -z "${output}" ]; then
+    echo "::debug ::git-chlog -o options is set. writing changelog to ${output}"
+    echo "${changelog}" > ${output}
   fi
+
 else 
   echo "::warning ::git-chlog configuration was not found, skipping changelog generation."
 fi
