@@ -41,17 +41,18 @@ if [ -f "${config}/config.yml" ] && [ -f "${config}/CHANGELOG.tpl.md" ]; then
   echo "${changelog}"
   echo "----------------------------------------------------------"
 
-  changelog="${changelog//'%'/'%25'}"
-  changelog="${changelog//$'\n'/'%0A'}"
-  changelog="${changelog//$'\r'/'%0D'}"
-  echo "::set-output name=changelog::${changelog}"
-
   echo "::debug ::git-chlog: -o '${output}'"
   if [[ ! -z "$output" ]]; then
     echo "::debug ::git-chlog -o options is set. writing changelog to ${output}"
     echo "${changelog}" > ${output}
   fi
-  find /github
+
+  changelog="${changelog//'%'/'%25'}"
+  changelog="${changelog//$'\n'/'%0A'}"
+  changelog="${changelog//$'\r'/'%0D'}"
+  echo "::set-output name=changelog::${changelog}"
+
+
 
 else 
   echo "::warning ::git-chlog configuration was not found, skipping changelog generation."
