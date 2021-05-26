@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 cd /github/workspace/
 
 while getopts "n:c:o:t:" opt; do
