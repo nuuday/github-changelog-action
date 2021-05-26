@@ -47,9 +47,13 @@ if [ -f "${config}/config.yml" ] && [ -f "${config}/CHANGELOG.tpl.md" ]; then
     echo "${changelog}" > ${output}
   fi
 
+  echo "::debug ::git-chlog: replace %"
   changelog="${changelog//'%'/'%25'}"
+  echo "::debug ::git-chlog: replace new-line"
   changelog="${changelog//$'\n'/'%0A'}"
+  echo "::debug ::git-chlog: replace carriage-return"
   changelog="${changelog//$'\r'/'%0D'}"
+  echo "::debug ::git-chlog: set output"
   echo "::set-output name=changelog::${changelog}"
 
 
