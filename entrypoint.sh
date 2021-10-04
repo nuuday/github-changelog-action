@@ -47,12 +47,7 @@ if [ -f "${config}/config.yml" ] && [ -f "${config}/CHANGELOG.tpl.md" ]; then
     echo "${changelog}" > ${output}
   fi
 
-  changelog="${changelog//'%'/'%25'}"
-  changelog="${changelog//$'\n'/'%0A'}"
-  changelog="${changelog//$'\r'/'%0D'}"
-  echo "::set-output name=changelog::${changelog}"
-
-
+  echo "::set-output name=changelog::$( jq -sRr @uri <<<$changelog )"
 
 else 
   echo "::warning ::git-chlog configuration was not found, skipping changelog generation."
