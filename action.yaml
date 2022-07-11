@@ -19,6 +19,10 @@ inputs:
     default: 'CHANGELOG.md'
     required: false
 
+  tag:
+    description: Optional, Generate changelog only for this tag.
+    required: false
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
