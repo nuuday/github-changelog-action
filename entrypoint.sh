@@ -30,7 +30,7 @@ while getopts "n:c:o:t:p:" opt; do
 done
 shift $((OPTIND -1))
 
-if [[ -z "$path" ]]; then
+if [[ ! -z "$path" ]]; then
     echo "::debug ::git-chlog -p options is set. change directory to ${path}"
     cd $path
 fi
