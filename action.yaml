@@ -19,6 +19,11 @@ inputs:
     default: 'CHANGELOG.md'
     required: false
 
+  path:
+    description: 'Optional path to follow for directory'
+    default: ''
+    required: false
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -31,3 +36,5 @@ runs:
     - ${{ inputs.filename }}
     - -t
     - ${{ inputs.tag }}
+    - -p
+    - ${{ inputs.path }}
