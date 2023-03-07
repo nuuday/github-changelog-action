@@ -10,11 +10,6 @@ while getopts "n:c:o:t:p:" opt; do
       fi
       config=$OPTARG
       ;;
-    n )
-      if [ ! -z ${OPTARG} ]; then
-        next_tag="--next-tag ${OPTARG}"
-      fi
-      ;;
     o )
       if [ ! -z ${OPTARG} ]; then
         output="${OPTARG}"
@@ -37,13 +32,12 @@ fi
 
 if [ -f "${config}/config.yml" ] && [ -f "${config}/CHANGELOG.tpl.md" ]; then
   echo "::debug ::git-chlog: -c '${config}'"
-  echo "::debug ::git-chlog: -n '${next_tag}'"
   echo "::debug ::git-chlog: -o '${output}'"
   echo "::debug ::git-chlog: -t '${tag}'"
   echo "::debug ::git-chlog: -p '${path}'"
-  echo "::info ::git-chlog executing command: /usr/local/bin/git-chglog --config "${config}/config.yml" ${next_tag} ${tag}"
+  echo "::info ::git-chlog executing command: /usr/local/bin/git-chglog --config "${config}/config.yml" ${tag}"
 
-  changelog=$(/usr/local/bin/git-chglog --config "${config}/config.yml" ${next_tag} ${tag})
+  changelog=$(/usr/local/bin/git-chglog --config "${config}/config.yml" ${tag})
 
   echo "----------------------------------------------------------"
   echo "${changelog}"
