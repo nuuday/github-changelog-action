@@ -1,7 +1,7 @@
 #!/bin/sh
 cd /github/workspace/
 
-while getopts "n:c:o:t:" opt; do
+while getopts "n:c:o:t:p:" opt; do
   case ${opt} in
     c )
       if [ -z "${OPTARG}" ]; then
@@ -9,11 +9,6 @@ while getopts "n:c:o:t:" opt; do
         exit 1
       fi
       config=$OPTARG
-      ;;
-    n )
-      if [ ! -z ${OPTARG} ]; then
-        next_tag="--next-tag ${OPTARG}"
-      fi
       ;;
     o )
       if [ ! -z ${OPTARG} ]; then
@@ -23,19 +18,26 @@ while getopts "n:c:o:t:" opt; do
     t )
       tag="${OPTARG}"
       ;;
+    p )
+      path="${OPTARG}"
+      ;;
   esac
 done
 shift $((OPTIND -1))
 
+if [[ ! -z "$path" ]]; then
+    echo "::debug ::git-chlog -p options is set. change directory to ${path}"
+    cd $path
+fi
 
 if [ -f "${config}/config.yml" ] && [ -f "${config}/CHANGELOG.tpl.md" ]; then
   echo "::debug ::git-chlog: -c '${config}'"
-  echo "::debug ::git-chlog: -n '${next_tag}'"
   echo "::debug ::git-chlog: -o '${output}'"
   echo "::debug ::git-chlog: -t '${tag}'"
-  echo "::info ::git-chlog executing command: /usr/local/bin/git-chglog --config "${config}/config.yml" ${next_tag} ${tag}"
+  echo "::debug ::git-chlog: -p '${path}'"
+  echo "::info ::git-chlog executing command: /usr/local/bin/git-chglog --config "${config}/config.yml" ${tag}"
 
-  changelog=$(/usr/local/bin/git-chglog --config "${config}/config.yml" ${next_tag} ${tag})
+  changelog=$(/usr/local/bin/git-chglog --config "${config}/config.yml" ${tag})
 
   echo "----------------------------------------------------------"
   echo "${changelog}"
@@ -47,8 +49,8 @@ if [ -f "${config}/config.yml" ] && [ -f "${config}/CHANGELOG.tpl.md" ]; then
     echo "${changelog}" > ${output}
   fi
 
-  echo "::set-output name=changelog::$( echo "$changelog" | jq -sRr @uri )"
+  echo "changelog=$( echo "$changelog" | jq -sRr @uri )" >> $GITHUB_OUTPUT
 
-else 
+else
   echo "::warning ::git-chlog configuration was not found, skipping changelog generation."
 fi

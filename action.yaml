@@ -5,10 +5,6 @@ branding:
   color: 'green'
 
 inputs:
-  next_version:
-    description: 'Next version'
-    required: true
-
   config_dir:
     description: 'git-chglog configuration directory'
     default: '.chglog'
@@ -19,15 +15,23 @@ inputs:
     default: 'CHANGELOG.md'
     required: false
 
+  path:
+    description: 'Optional path to follow for directory'
+    default: ''
+    required: false
+
+  tag:
+    description: 'Tag to generate the changelog for'
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - -c
     - ${{ inputs.config_dir }}
-    - -n
-    - ${{ inputs.next_version }}
     - -o
     - ${{ inputs.filename }}
     - -t
     - ${{ inputs.tag }}
+    - -p
+    - ${{ inputs.path }}
